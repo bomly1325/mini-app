@@ -52,28 +52,4 @@ class AdminLoanController extends ApiController
 
         return response()->json(['success' => true]);
     }
-
-    public function rejectLoan($id, LoanRepository $loanRepository)
-    {
-        $loan = $loanRepository->find($id);
-
-        if (!$loan) {
-            throw ValidationException::withMessages([
-                'id' => ['Loan not found.'],
-            ]);
-        }
-
-        if ($loan->status != Loan::STATUS_NEW) {
-            throw ValidationException::withMessages([
-                'status' => ['Loan status is not valid for rejectiony.'],
-            ]);
-        }
-
-        $loanRepository->update($id, [
-            'status' => Loan::STATUS_REJECTED,
-            'admin_id' => Auth::user()->id
-        ]);
-
-        return response()->json(['success' => true]);
-    }
 }

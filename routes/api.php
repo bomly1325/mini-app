@@ -29,6 +29,5 @@ Route::prefix('admin-grp')->group(function () {
     Route::middleware(['auth:sanctum', 'adminApi'])->group(function () {
         Route::delete('/logout', [\App\Http\Controllers\API\Admin\AdminAuthController::class, 'logout']);
         Route::patch('/loans/{id}/approve', [\App\Http\Controllers\API\Admin\AdminLoanController::class, 'approveLoan']);
-        Route::patch('/loans/{id}/reject', [\App\Http\Controllers\API\Admin\AdminLoanController::class, 'rejectLoan']);
     });
 });
