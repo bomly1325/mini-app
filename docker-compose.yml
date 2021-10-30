@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  database:
+    build:
+      context: ./.docker/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+    ports:
+      - "${DATABASE_PORT}:3306"
+    volumes:
+      - ./.docker/mysql/data:/var/lib/mysql
+
+  php-fpm:
+    build:
+      context: ./.docker/php
+    depends_on:
+      - database
+    working_dir: /var/www/app
+    volumes:
+      - .:/var/www/app
+
+  nginx:
+    build:
+      context: ./.docker/nginx
+    volumes:
+      - .:/var/www/app
+      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./.docker/nginx/sites-available/:/etc/nginx/sites-available
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d
+      - ./.docker/nginx/logs:/var/log/nginx/
+    depends_on:
+      - php-fpm
+    ports:
+      - "${NGINX_PORT}:80"
