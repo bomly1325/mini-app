@@ -94,3 +94,5 @@
 172.21.0.1 - - [30/Oct/2021:12:00:10 +0000] "PATCH /api/admin-grp/loans/4/approve HTTP/1.1" 422 78 "-" "PostmanRuntime/7.28.4"
 172.21.0.1 - - [30/Oct/2021:12:05:57 +0000] "PATCH /api/admin-grp/loans/4/approve HTTP/1.1" 500 13283 "-" "PostmanRuntime/7.28.4"
 172.21.0.1 - - [30/Oct/2021:12:06:17 +0000] "PATCH /api/admin-grp/loans/4/approve HTTP/1.1" 200 5 "-" "PostmanRuntime/7.28.4"
+172.21.0.1 - - [30/Oct/2021:12:38:32 +0000] "POST /api/admin-grp/login HTTP/1.1" 500 16119 "-" "PostmanRuntime/7.28.4"
+172.21.0.1 - - [30/Oct/2021:12:41:28 +0000] "POST /api/admin-grp/login HTTP/1.1" 200 88 "-" "PostmanRuntime/7.28.4"
