@@ -40,23 +40,7 @@ class AdminLoanController extends ApiController
                 'status' => Loan::STATUS_APPROVED,
                 'admin_id' => Auth::user()->id
             ]);
-            $today = Carbon::now();
-            $amount = $loan->amount;
-            $terms = $loan->term_in_week;
-            $rate = $loan->interest_rate;
-            $paymentAmount = $amount / $terms;
-            $balance = $amount;
-            for ($i = 1; $i <= $terms; $i ++) {
-                $interest = $balance * $rate;
-                $balance = $balance - $paymentAmount;
-                $payment = $paymentRepository->create([
-                    'loan_id' => $loan->id,
-                    'payment_date' => $today->addWeek()->format('Y-m-d'),
-                    'payment' => $paymentAmount,
-                    'interest' => $interest,
-                    'balance' => $balance
-                ]);
-            }
+            $paymentRepository->createPaymentForLoan($loan);
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
